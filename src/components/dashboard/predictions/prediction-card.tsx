@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -261,12 +260,10 @@ export function PredictionCard({ prediction }: PredictionCardProps): React.JSX.E
         {/* User info */}
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar sx={{ width: 24, height: 24, fontSize: '0.7rem', bgcolor: 'primary.main' }}>
-              {prediction.user.avatar ? (
-                <img src={prediction.user.avatar} alt={prediction.user.name} />
-              ) : (
-                prediction.user.name[0]
-              )}
+            <Avatar sx={{ width: 24, height: 24, fontSize: '0.7rem', bgcolor: 'primary.main' }}
+              src={prediction.user.avatar}
+            >
+              {prediction.user.name[0]}
             </Avatar>
             <Box>
               <Typography variant="caption" fontWeight={600}>
