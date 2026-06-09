@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Image from 'next/image';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,6 +13,40 @@ import { ArrowUpIcon } from '@phosphor-icons/react/dist/ssr/ArrowUp';
 import { CheckCircleIcon } from '@phosphor-icons/react/dist/ssr/CheckCircle';
 import { StarIcon } from '@phosphor-icons/react/dist/ssr/Star';
 import dayjs from 'dayjs';
+
+import avalancheLogo from '@/assets/coinimg/Avalanche_Circle_RedWhite_Trans.png';
+import bitcoinLogo from '@/assets/coinimg/bitcoin.png';
+import bnbLogo from '@/assets/coinimg/bnb-icon2_2x.png';
+import cardanoLogo from '@/assets/coinimg/cardano.png';
+import chainlinkLogo from '@/assets/coinimg/chainlink-new-logo.png';
+import cosmosLogo from '@/assets/coinimg/cosmos_hub.png';
+import dogecoinLogo from '@/assets/coinimg/dogecoin.png';
+import ethereumLogo from '@/assets/coinimg/ethereum.png';
+import litecoinLogo from '@/assets/coinimg/litecoin.png';
+import nearLogo from '@/assets/coinimg/near.jpg';
+import polkadotLogo from '@/assets/coinimg/polkadot.png';
+import polygonLogo from '@/assets/coinimg/polygon.png';
+import solanaLogo from '@/assets/coinimg/solana.png';
+import uniLogo from '@/assets/coinimg/uni.jpg';
+import xrpLogo from '@/assets/coinimg/xrp-symbol-white-128.png';
+
+export const coinLogos: Record<string, string> = {
+  BTC: bitcoinLogo.src,
+  ETH: ethereumLogo.src,
+  SOL: solanaLogo.src,
+  BNB: bnbLogo.src,
+  ADA: cardanoLogo.src,
+  AVAX: avalancheLogo.src,
+  LINK: chainlinkLogo.src,
+  ATOM: cosmosLogo.src,
+  DOGE: dogecoinLogo.src,
+  LTC: litecoinLogo.src,
+  NEAR: nearLogo.src,
+  DOT: polkadotLogo.src,
+  MATIC: polygonLogo.src,
+  UNI: uniLogo.src,
+  XRP: xrpLogo.src,
+};
 
 export type PredictionStatus = 'pending' | 'success' | 'failed';
 
@@ -27,7 +62,7 @@ export interface Prediction {
   id: string;
   coin: string;
   coinSymbol: string;
-  coinLogo: string;
+  coinLogo?: string;
   status: PredictionStatus;
   initialPrice: number;
   initialDate: Date;
@@ -80,6 +115,7 @@ function PriceRow({ label, date, price, color }: { label: string; date?: Date; p
 export function PredictionCard({ prediction }: PredictionCardProps): React.JSX.Element {
   const { label, color, bg } = statusConfig[prediction.status];
   const isUp = prediction.percentageChange >= 0;
+  const logoSrc = coinLogos[prediction.coinSymbol] ?? prediction.coinLogo;
 
   return (
     <Card
@@ -90,13 +126,18 @@ export function PredictionCard({ prediction }: PredictionCardProps): React.JSX.E
         bgcolor: 'rgba(255,255,255,0.04)',
         border: '1px solid rgba(255,255,255,0.08)',
         borderRadius: 2,
+        transition: 'background-color 0.2s ease',
+        '&:hover': {
+          bgcolor: 'rgba(255,255,255,0.10)',
+          cursor: 'pointer',
+        },
       }}
     >
       <CardContent sx={{ flex: '1 1 auto', pb: 1 }}>
         {/* Header */}
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Avatar src={prediction.coinLogo} sx={{ width: 28, height: 28 }} />
+            <Avatar src={logoSrc} sx={{ width: 28, height: 28 }} />
             <Box>
               <Typography variant="subtitle2" fontWeight={700}>
                 {prediction.coin}

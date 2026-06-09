@@ -17,6 +17,9 @@ import { PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { UserIcon } from '@phosphor-icons/react/dist/ssr/User';
 import { UsersIcon } from '@phosphor-icons/react/dist/ssr/Users';
 
+import { NewPredictionModal } from './new-prediction-modal';
+import type { NewPredictionData } from './new-prediction-modal';
+
 const coinFilters = [
   { label: 'All', value: 'all' },
   { label: 'BTC', value: 'btc', color: '#f7931a' },
@@ -35,11 +38,13 @@ const feedTabs = [
 
 interface PredictionsFiltersProps {
   todayCount?: number;
+  onNewPrediction?: (data: NewPredictionData) => void;
 }
 
-export function PredictionsFilters({ todayCount = 10 }: PredictionsFiltersProps): React.JSX.Element {
+export function PredictionsFilters({ todayCount = 10, onNewPrediction }: PredictionsFiltersProps): React.JSX.Element {
   const [activeCoin, setActiveCoin] = React.useState('all');
   const [activeTab, setActiveTab] = React.useState('activity');
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   return (
     <Stack spacing={2}>
@@ -48,6 +53,7 @@ export function PredictionsFilters({ todayCount = 10 }: PredictionsFiltersProps)
         <Button
           variant="contained"
           startIcon={<PlusIcon size={16} />}
+          onClick={() => setModalOpen(true)}
           sx={{
             bgcolor: 'primary.main',
             borderRadius: 2,
@@ -151,6 +157,8 @@ export function PredictionsFilters({ todayCount = 10 }: PredictionsFiltersProps)
           />
         ))}
       </Tabs>
+
+      <NewPredictionModal open={modalOpen} onClose={() => setModalOpen(false)} onSubmit={onNewPrediction} />
     </Stack>
   );
 }
