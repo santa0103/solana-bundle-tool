@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Stack from '@mui/material/Stack';
 import { useTheme } from '@mui/material/styles';
-import type { SxProps } from '@mui/material/styles';
+import type { SxProps, Theme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import type { Icon } from '@phosphor-icons/react/dist/lib/types';
 import { CheckCircleIcon } from '@phosphor-icons/react/dist/ssr/CheckCircle';
@@ -20,7 +20,7 @@ const iconMapping = { Success: CheckCircleIcon, Pending: ClockIcon, Failed: XCir
 
 const PENDING_COLOR = '#fb9c0c';
 
-function getSegmentColor(label: string, theme: ReturnType<typeof useTheme>): string {
+function getSegmentColor(label: string, theme: Theme): string {
   if (label === 'Success') return theme.palette.success.main;
   if (label === 'Pending') return PENDING_COLOR;
   if (label === 'Failed') return theme.palette.error.main;
