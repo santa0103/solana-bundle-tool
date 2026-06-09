@@ -55,6 +55,9 @@ export function PredictionsStats(): React.JSX.Element {
               bgcolor: 'rgba(255,255,255,0.04)',
               border: '1px solid rgba(255,255,255,0.08)',
               borderRadius: 2,
+              minHeight: '100px',
+              display: 'flex',
+              alignItems: 'center'
             }}
           >
             <Stack direction="row" spacing={2} alignItems="flex-start">
