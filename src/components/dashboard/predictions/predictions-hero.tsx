@@ -9,10 +9,16 @@ import { GiftIcon } from '@phosphor-icons/react/dist/ssr/Gift';
 import { RocketLaunchIcon } from '@phosphor-icons/react/dist/ssr/RocketLaunch';
 import { StarIcon } from '@phosphor-icons/react/dist/ssr/Star';
 
+import { AirdropModal } from './airdrop-modal';
+import { LearnMoreModal } from './learn-more-modal';
 import { RegisterSaleModal } from './register-sale-modal';
+import { TutorialModal } from './tutorial-modal';
 
 export function PredictionsHero(): React.JSX.Element {
   const [saleModalOpen, setSaleModalOpen] = React.useState(false);
+  const [tutorialOpen, setTutorialOpen] = React.useState(false);
+  const [airdropOpen, setAirdropOpen] = React.useState(false);
+  const [learnMoreOpen, setLearnMoreOpen] = React.useState(false);
 
   return (
     <>
@@ -87,6 +93,7 @@ export function PredictionsHero(): React.JSX.Element {
               size="small"
               variant="contained"
               startIcon={<RocketLaunchIcon size={14} />}
+              onClick={() => setTutorialOpen(true)}
               sx={{
                 bgcolor: '#7c3aed',
                 borderRadius: 2,
@@ -101,6 +108,7 @@ export function PredictionsHero(): React.JSX.Element {
               size="small"
               variant="contained"
               startIcon={<GiftIcon size={14} />}
+              onClick={() => setAirdropOpen(true)}
               sx={{
                 bgcolor: '#059669',
                 borderRadius: 2,
@@ -114,6 +122,7 @@ export function PredictionsHero(): React.JSX.Element {
             <Button
               size="small"
               variant="outlined"
+              onClick={() => setLearnMoreOpen(true)}
               sx={{
                 borderRadius: 2,
                 textTransform: 'none',
@@ -129,6 +138,9 @@ export function PredictionsHero(): React.JSX.Element {
       </Stack>
 
       <RegisterSaleModal open={saleModalOpen} onClose={() => setSaleModalOpen(false)} />
+      <TutorialModal open={tutorialOpen} onClose={() => setTutorialOpen(false)} />
+      <AirdropModal open={airdropOpen} onClose={() => setAirdropOpen(false)} />
+      <LearnMoreModal open={learnMoreOpen} onClose={() => setLearnMoreOpen(false)} />
     </>
   );
 }
