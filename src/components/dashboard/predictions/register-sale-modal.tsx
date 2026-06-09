@@ -17,7 +17,7 @@ import { WarningIcon } from '@phosphor-icons/react/dist/ssr/Warning';
 import { XIcon } from '@phosphor-icons/react/dist/ssr/X';
 
 const PRICE_PER_CWAVE = 0.2; // €
-const PURCHASE_LIMIT = 10000;
+const PURCHASE_LIMIT = 10_000;
 
 const C = {
   bg: '#0f1629',
@@ -224,7 +224,7 @@ export function RegisterSaleModal({ open, onClose }: RegisterSaleModalProps): Re
               background: isValid
                 ? 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)'
                 : undefined,
-              bgcolor: !isValid ? 'rgba(124,58,237,0.3)' : undefined,
+              bgcolor: isValid ? undefined : 'rgba(124,58,237,0.3)',
               '&:hover': {
                 background: 'linear-gradient(135deg, #6d28d9 0%, #9333ea 100%)',
               },
