@@ -51,6 +51,14 @@ export default [
 				},
 			},
 		},
+		rules: {
+			// Disable import resolution rules — handled by TypeScript compiler
+			"import/no-unresolved": "off",
+			"import/namespace": "off",
+			"import/no-duplicates": "off",
+			"import/named": "off",
+			"import/default": "off",
+		},
 	},
 	pluginUnicorn.configs["flat/recommended"],
 	{

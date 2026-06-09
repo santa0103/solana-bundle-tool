@@ -65,7 +65,7 @@ const STEPS = 3;
 
 // Mock current prices (USD)
 const MOCK_PRICES: Record<string, number> = {
-  BTC: 62781.0, ETH: 2316.4, SOL: 67.05, XRP: 0.52, ADA: 0.44,
+  BTC: 62_781, ETH: 2316.4, SOL: 67.05, XRP: 0.52, ADA: 0.44,
   DOGE: 0.12, DOT: 6.8, AVAX: 28.4, LINK: 13.2, BNB: 601.5,
   MATIC: 0.51, ATOM: 7.9, UNI: 6.3, LTC: 74.2, NEAR: 4.8,
 };
