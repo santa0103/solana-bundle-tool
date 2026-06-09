@@ -26,7 +26,7 @@ export function PredictionsHero(): React.JSX.Element {
       >
         <Stack direction="row" spacing={1} alignItems="center">
           <RocketLaunchIcon size={18} color="#a78bfa" />
-          <Box>
+          <Box minHeight={"80px"} display={"flex"} justifyContent={"center"} flexDirection={"column"}>
             <Typography variant="body2" fontWeight={700} color="#a78bfa">
               CWAVE Coming Soon!
             </Typography>
@@ -67,7 +67,7 @@ export function PredictionsHero(): React.JSX.Element {
             letterSpacing: -1,
           }}
         >
-          Coinwave
+          Solana bundle tool
         </Typography>
         <Typography variant="body1" color="text.secondary">
           Predict, Earn, Learn
