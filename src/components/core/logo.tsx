@@ -20,14 +20,13 @@ export interface LogoProps {
 
 export function Logo({ color = 'dark', emblem, height = HEIGHT, width = WIDTH }: LogoProps): React.JSX.Element {
   let url: string;
+  url = '/favicon.ico';
 
-  if (emblem) {
-    url = color === 'light' ? '/assets/logo-emblem.svg' : '/assets/logo-emblem--dark.svg';
-  } else {
-    url = color === 'light' ? '/assets/logo.svg' : '/assets/logo--dark.svg';
-  }
-
-  return <Box alt="logo" component="img" height={height} src={url} width={width} />;
+  return (
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}>
+      <Box component="img" src={url} alt="logo" height={'100px'} width={'100px'} />
+      </div>
+  )
 }
 
 export interface DynamicLogoProps {
