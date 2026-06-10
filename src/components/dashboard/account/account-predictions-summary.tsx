@@ -53,12 +53,33 @@ const FILTER_TABS = [
   { label: 'Failed',     value: 'failed' },
 ];
 
+type PredictionTab = 'all' | 'pending' | 'successful' | 'failed';
+
+interface AccountPrediction {
+  id: string;
+  status: Exclude<PredictionTab, 'all'>;
+}
+
 export function AccountPredictionsSummary(): React.JSX.Element {
   const router = useRouter();
-  const [activeTab, setActiveTab] = React.useState('all');
+  const [activeTab, setActiveTab] = React.useState<PredictionTab>('all');
   const [modalOpen, setModalOpen] = React.useState(false);
+  const [predictions] = React.useState<AccountPrediction[]>([]);
 
-  const counts: Record<string, number> = { all: 0, pending: 0, successful: 0, failed: 0 };
+  const counts = React.useMemo(
+    () => ({
+      all: predictions.length,
+      pending: predictions.filter((p) => p.status === 'pending').length,
+      successful: predictions.filter((p) => p.status === 'successful').length,
+      failed: predictions.filter((p) => p.status === 'failed').length,
+    }),
+    [predictions]
+  );
+
+  const filteredPredictions = React.useMemo(() => {
+    if (activeTab === 'all') return predictions;
+    return predictions.filter((p) => p.status === activeTab);
+  }, [activeTab, predictions]);
 
   return (
     <>
@@ -130,10 +151,15 @@ export function AccountPredictionsSummary(): React.JSX.Element {
                 fontWeight: 700,
                 py: 1.5,
                 fontSize: '0.95rem',
-                borderColor: 'rgba(255,255,255,0.25)',
+                border: '1px solid #9999b8',
+                borderColor: '#9999b8',
                 color: 'text.primary',
                 bgcolor: 'rgba(255,255,255,0.04)',
-                '&:hover': { bgcolor: 'rgba(255,255,255,0.08)', borderColor: 'rgba(255,255,255,0.4)' },
+                transition: 'background-color 0.2s ease, border-color 0.2s ease',
+                '&:hover': {
+                  bgcolor: '#9999b8',
+                  borderColor: '#9999b8',
+                },
               }}
             >
               Read Predictions
@@ -145,11 +171,13 @@ export function AccountPredictionsSummary(): React.JSX.Element {
         <Stack direction="row" spacing={1} flexWrap="wrap">
           {FILTER_TABS.map((tab) => {
             const isActive = activeTab === tab.value;
+            const tabValue = tab.value as PredictionTab;
+
             return (
               <Chip
                 key={tab.value}
-                label={`${tab.label} (${counts[tab.value]})`}
-                onClick={() => setActiveTab(tab.value)}
+                label={`${tab.label} (${counts[tabValue]})`}
+                onClick={() => setActiveTab(tabValue)}
                 size="small"
                 sx={{
                   bgcolor: isActive ? 'primary.main' : 'transparent',
@@ -163,6 +191,25 @@ export function AccountPredictionsSummary(): React.JSX.Element {
             );
           })}
         </Stack>
+
+        {filteredPredictions.length === 0 ? (
+          <Box
+            sx={{
+              py: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 2,
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+          >
+            <WaveformIcon size={28} color="rgb(109, 108, 108)" />
+            <Typography sx={{ mt: 1.5, color: 'text.secondary' }} variant="body2">
+              No predictions in this category
+            </Typography>
+          </Box>
+        ) : null}
       </Stack>
 
       <NewPredictionModal open={modalOpen} onClose={() => setModalOpen(false)} />
