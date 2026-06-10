@@ -18,9 +18,8 @@ export interface LogoProps {
   width?: number;
 }
 
-export function Logo({ color = 'dark', emblem, height = HEIGHT, width = WIDTH }: LogoProps): React.JSX.Element {
-  let url: string;
-  url = '/favicon.ico';
+export function Logo({ color: _color = 'dark', emblem: _emblem, height: _height = HEIGHT, width: _width = WIDTH }: LogoProps): React.JSX.Element {
+  const url = '/favicon.ico';
 
   return (
     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', cursor: 'pointer'}}>
